@@ -12,8 +12,15 @@ var db = new sqlite3.Database('whiskey.db');
 
 
 app.get('/', function(req, res){
+	db.get("SELECT * FROM whiskey", function(err, row){
+		if (err){
+			throw err
+		}else{
+			res.send(row)		
+		}
+	});
 	console.log('HELLO WORLD')
-	res.send("MOAR ELLO WARLDS")
+	
 });
 
 app.listen(3000);
