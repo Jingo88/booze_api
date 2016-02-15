@@ -12,7 +12,7 @@ var db = new sqlite3.Database('whiskey.db');
 
 
 app.get('/', function(req, res){
-	db.get("SELECT * FROM whiskey", function(err, row){
+	db.all("SELECT * FROM whiskey", function(err, row){
 		if (err){
 			throw err
 		}else{
@@ -25,6 +25,8 @@ app.get('/', function(req, res){
 
 app.listen(3000);
 console.log("We are connected to port 3000")
+
+//check out sqlite3 wrapper commands ---- .run / .all / .get
 
 
 //What are your routes?
