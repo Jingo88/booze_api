@@ -1,11 +1,15 @@
 //connect your modules
+//express
 var express = require('express');
-var bodyParser = require('body-parser');
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('booze.db');
-
-
 var app = express()
+
+//middleware
+var bodyParser = require('body-parser');
+
+//database
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('whiskey.db');
+
 
 app.get('/', function(req, res){
 	console.log('HELLO WORLD')
