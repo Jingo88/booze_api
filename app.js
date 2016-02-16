@@ -5,6 +5,8 @@ var app = express()
 
 //middleware
 var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true })); 
 
 //database
 var sqlite3 = require('sqlite3').verbose();
@@ -50,19 +52,26 @@ app.get('/whiskeys/edit/:id', function(req,res){
 
 app.post('/whiskeys/create', function(req,res){
 	console.log("WE ARE IN POST CREATE")
-	db.run("INSERT INTO whiskey (name, type, price) VALUE (?, ?, ?)",'Woodford Reserve', 'Whiskey Bourbon', 40, function(err){
+	var name = req.body.name;
+	var type = req.body.type;
+	var price = req.body.price;
+
+	db.run("INSERT INTO whiskey (name, type, price) VALUES (?, ?, ?)", name, type, price, function(err){
 		if(err){
 			throw err;
 		}
 	})
-	res.send("YOU HAVE CREATED A POST")
-})
+	res.send("You have created "+ name + " in our database")
+});
 
 app.post('/whiskeys/update/:id', function(req,res){
+	var data = req.body
+	console.log(data)
 	console.log("POST Update ID")
-})
+	res.send(data)
+});
 
-app.get('/whiskeys/delete/:id', function(req, res){
+app.delete('/whiskeys/delete/:id', function(req, res){
 	var delID = req.params.id;
 
 	db.run("DELETE FROM whiskey WHERE id=?", delID, function(err, row){
@@ -72,8 +81,7 @@ app.get('/whiskeys/delete/:id', function(req, res){
 			res.send("Whiskey has been deleted")
 		}
 	})
-	console.log("DELETE ID")
-})
+});
 
 
 app.listen(3000);
@@ -83,6 +91,15 @@ console.log("We are connected to port 3000")
 
 
 
+//ROUTES
+
+// GET /whiskeys
+// GET /whiskeys/new
+// GET /whiskeys/id
+// GET /whiskeys/id/edit
+// PUT /whiskeys/id/update
+// POST /whiskeys/create
+// DELETE /whiskeys/id/delete
 
 
 

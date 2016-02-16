@@ -12,3 +12,4 @@ sqlite3 whiskey.db < schema.sql
 ```
 node seed.js
 ```
+* USE POSTMAN WOOOOOO
