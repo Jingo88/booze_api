@@ -48,7 +48,7 @@ app.get('/whiskeys/edit/:id', function(req,res){
 	console.log("GET Whiskeys id edit")
 })
 
-app.post('whiskeys/create', function(req,res){
+app.post('/whiskeys/create', function(req,res){
 	console.log("WE ARE IN POST CREATE")
 	db.run("INSERT INTO whiskey (name, type, price) VALUE (?, ?, ?)",'Woodford Reserve', 'Whiskey Bourbon', 40, function(err){
 		if(err){
@@ -58,12 +58,20 @@ app.post('whiskeys/create', function(req,res){
 	res.send("YOU HAVE CREATED A POST")
 })
 
-app.post('whiskeys/update/:id', function(req,res){
+app.post('/whiskeys/update/:id', function(req,res){
 	console.log("POST Update ID")
 })
 
-app.delete('whiskeys/delete/:id', function(req, res){
-	db.run("DELETE ")
+app.get('/whiskeys/delete/:id', function(req, res){
+	var delID = req.params.id;
+
+	db.run("DELETE FROM whiskey WHERE id=?", delID, function(err, row){
+		if (err){
+			throw err
+		} else {
+			res.send("Whiskey has been deleted")
+		}
+	})
 	console.log("DELETE ID")
 })
 
