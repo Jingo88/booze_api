@@ -36,7 +36,7 @@ app.get('/whiskeys/search/:name', function(req,res){
 
 	var wName= req.params.name;
 
-	db.all("SELECT * FROM whiskey WHERE name CONTAINS ?", function(err, row){
+	db.all("SELECT * FROM whiskey WHERE name LIKE ?", "%"+wName+"%", function(err, row){
 		if(err){
 			throw err
 		} else {
@@ -93,15 +93,14 @@ app.post('/whiskeys/update/:id', function(req,res){
 });
 
 //DELETE Whiskey
-app.delete('/whiskeys/delete/:id', function(req, res){
+app.delete('/whiskeys/:id/delete', function(req, res){
 	var delID = req.params.id;
 
 	db.run("DELETE FROM whiskey WHERE id=?", delID, function(err, row){
 		if (err){
 			throw err
 		} else {
-			var name = row.name
-			res.send(name + " has been deleted from the database")
+			res.send("Whiskey has been deleted from the database")
 		}
 	})
 });
