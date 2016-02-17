@@ -12,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('whiskey.db');
 
+//route for all whiskeys in database
 app.get('/whiskeys', function(req, res){
 	db.all("SELECT * FROM whiskey", function(err, row){
 		if (err){
@@ -22,11 +23,12 @@ app.get('/whiskeys', function(req, res){
 	});
 });
 
+//route to let a user search by name
 app.get('/whiskeys/search/:name', function(req,res){
 
 	var wName= req.params.name;
 
-	db.all("SELECT * FROM whiskey WHERE name=?", function(err, row){
+	db.all("SELECT * FROM whiskey WHERE name CONTAINS ?", function(err, row){
 		if(err){
 			throw err
 		} else {
@@ -108,8 +110,6 @@ console.log("We are connected to port 3000")
 // POST /whiskeys/create 								Create New Whiskey
 // DELETE /whiskeys/id/delete 					Delete One Whiskey
 
-
-//START USING THE express.Router() class
 
 
 
