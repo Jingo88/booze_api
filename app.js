@@ -3,6 +3,9 @@
 var express = require('express');
 var app = express()
 
+//set your port
+app.set('port', (process.env.PORT || 3000));
+
 //middleware
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
@@ -104,8 +107,11 @@ app.delete('/whiskeys/delete/:id', function(req, res){
 });
 
 
-app.listen(3000);
-console.log("We are connected to port 3000")
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
+// app.listen(3000);
+// console.log("We are connected to port 3000")
 
 //check out sqlite3 wrapper commands ---- .run / .all / .get
 
