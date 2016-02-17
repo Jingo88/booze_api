@@ -15,8 +15,37 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('whiskey.db');
 
-//route for all whiskeys in database
 
+// var http = require('http');
+
+app.get('/favicon.ico', function(req, res){
+	res.writeHead(200, {'Content-Type': 'image/x-icon'});
+	res.end();
+})
+
+// http.createServer(function (q, r) { 
+
+//   // control for favicon
+//   if (q.url === '/favicon.ico') {
+//     r.writeHead(200, {'Content-Type': 'image/x-icon'} );
+//     r.end();
+//     console.log('favicon requested');
+//     return;
+//   }
+
+//   // not the favicon? say hai
+//   console.log('hello');
+//   r.writeHead(200, {'Content-Type': 'text/plain'} );
+//   r.write('Hello, world!');
+//   r.end();
+  
+// }).listen(8000);
+
+// console.log('Server running at http://127.0.0.1:8000/');
+
+
+
+//route for all whiskeys in database
 app.get('/', function(req, res){
 	res.redirect('/whiskeys')
 })
@@ -125,12 +154,6 @@ app.listen(app.get('port'), function() {
 // PUT /whiskeys/id/update 							Update One Whiskey
 // POST /whiskeys/create 								Create New Whiskey
 // DELETE /whiskeys/id/delete 					Delete One Whiskey
-
-
-
-
-
-
 
 
 
