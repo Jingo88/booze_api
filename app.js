@@ -1,22 +1,13 @@
 //connect your modules
-//express
-var express = require('express');
-var app = express()
-
-//set your port
-app.set('port', (process.env.PORT || 3000));
-
-//middleware
-var bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true })); 
-
-//database
-var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('whiskey.db');
-
-//import the wording.js file
-var mexp = require("./wording.js")
+var express = require('express');											//express
+var app = express()																		//express
+app.set('port', (process.env.PORT || 3000));					//set your port
+var bodyParser = require('body-parser');							//middleware
+app.use(bodyParser.json());														//middleware
+app.use(bodyParser.urlencoded({ extended: true })); 	//middleware
+var sqlite3 = require('sqlite3').verbose();						//database
+var db = new sqlite3.Database('whiskey.db');					//database
+var mexp = require("./wording.js") 										//import the wording.js file
 
 
 //get rid of favicon bullshit
@@ -25,11 +16,10 @@ app.get('/favicon.ico', function(req, res){
 	res.end();
 })
 
-//route for all whiskeys in database
+//HOME ROUTE
 app.get('/', function(req, res){
 	res.redirect('/whiskeys')
 })
-
 app.get('/whiskeys', function(req, res){
 	db.all("SELECT * FROM whiskey", function(err, row){
 		if (err){
@@ -67,7 +57,6 @@ var singleID = function(req, res){
 		}
 	})
 }
-
 //GET requests for a single whiskey
 app.get('/whiskeys/:id', singleID);
 app.get('/whiskeys/:id/update', singleID);

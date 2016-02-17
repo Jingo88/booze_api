@@ -9,3 +9,13 @@ mexp.titleCase = function(x){
 	str = str.join(" ");
 	return str
 }
+
+var badWords = [
+
+];
+
+
+
+
+
+
