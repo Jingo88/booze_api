@@ -13,6 +13,11 @@ var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('whiskey.db');
 
 //route for all whiskeys in database
+
+app.get('/', function(req, res){
+	res.redirect('/whiskeys')
+})
+
 app.get('/whiskeys', function(req, res){
 	db.all("SELECT * FROM whiskey", function(err, row){
 		if (err){
@@ -50,10 +55,13 @@ var singleID = function(req, res){
 	})
 }
 
+//GET requests for a single whiskey
 app.get('/whiskeys/:id', singleID);
 
-app.get('/whiskeys/:id/edit', singleID);
+app.get('/whiskeys/:id/update', singleID);
 
+
+//POST request for creating a whiskey
 app.post('/whiskeys/create', function(req,res){
 	var name = req.body.name;
 	var type = req.body.type;
@@ -67,6 +75,7 @@ app.post('/whiskeys/create', function(req,res){
 	res.send("You have created "+ name + " in our database")
 });
 
+//POST requests for updating whiskey
 app.post('/whiskeys/update/:id', function(req,res){
 	var wID = req.params.id;
 	var name = req.body.name;
@@ -77,9 +86,10 @@ app.post('/whiskeys/update/:id', function(req,res){
 		if(err){
 			throw err
 		}
-	} )
+	})
 });
 
+//DELETE Whiskey
 app.delete('/whiskeys/delete/:id', function(req, res){
 	var delID = req.params.id;
 
@@ -87,7 +97,8 @@ app.delete('/whiskeys/delete/:id', function(req, res){
 		if (err){
 			throw err
 		} else {
-			res.send("Whiskey has been deleted")
+			var name = row.name
+			res.send(name + " has been deleted from the database")
 		}
 	})
 });
