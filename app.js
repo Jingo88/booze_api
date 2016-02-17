@@ -4,7 +4,7 @@ var express = require('express');
 var app = express()
 
 //set your port
-app.set('port', (process.env.PORT || 8080));
+app.set('port', (process.env.PORT || 3000));
 
 //middleware
 var bodyParser = require('body-parser');
@@ -14,6 +14,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //database
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('whiskey.db');
+
+//import the wording.js file
+var mexp = require("./wording.js")
+
 
 //get rid of favicon bullshit
 app.get('/favicon.ico', function(req, res){
@@ -39,7 +43,8 @@ app.get('/whiskeys', function(req, res){
 //route to let a user search by name
 app.get('/whiskeys/search/:name', function(req,res){
 
-	var wName= req.params.name;
+	var param= req.params.name;
+	var wName = mexp.titleCase(param);
 
 	db.all("SELECT * FROM whiskey WHERE name LIKE ?", "%"+wName+"%", function(err, row){
 		if(err){
@@ -70,9 +75,17 @@ app.get('/whiskeys/:id/update', singleID);
 
 //POST request for creating a whiskey
 app.post('/whiskeys/create', function(req,res){
-	var name = req.body.name;
-	var type = req.body.type;
-	var price = req.body.price;
+	var rName = req.body.name;
+	var rType = req.body.type;
+	var rPrice = req.body.price;
+
+	var name = mexp.titleCase(rName);
+	var type = mexp.titleCase(rType);
+	var price = rPrice;
+
+	//if there is a curse word, run a function to replace it with a cute word, 
+	//place the cute word into the sql command
+	//curse word checker should run on with a split function on spacebar
 
 	db.run("INSERT INTO whiskey (name, type, price) VALUES (?, ?, ?)", name, type, price, function(err){
 		if(err){
@@ -85,9 +98,13 @@ app.post('/whiskeys/create', function(req,res){
 //POST requests for updating whiskey
 app.post('/whiskeys/update/:id', function(req,res){
 	var wID = req.params.id;
-	var name = req.body.name;
-	var type = req.body.type;
-	var price = req.body.price;
+	var rName = req.body.name;
+	var rType = req.body.type;
+	var rprice = req.body.price;
+
+	var name = mexp.titleCase(rName);
+	var type = mexp.titleCase(rType);
+	var price = rPrice;
 
 	db.run("UPDATE whiskey SET name=?, type=?, price=? WHERE id=?",name, type, price, function(err){
 		if(err){
@@ -127,6 +144,22 @@ app.listen(app.get('port'), function() {
 // PUT /whiskeys/id/update 							Update One Whiskey
 // POST /whiskeys/create 								Create New Whiskey
 // DELETE /whiskeys/id/delete 					Delete One Whiskey
+
+// TODO
+
+// change update route
+// Add curse word checker
+// regex
+// make something to prevent a billion curl posts
+// 
+
+
+
+
+
+
+
+
 
 
 
