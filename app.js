@@ -17,16 +17,23 @@ app.get('/whiskeys', function(req, res){
 		if (err){
 			throw err
 		}else{
-			res.send(row)		
+			res.json(row)		
 		}
 	});
 });
 
-//Think about how to let users search, build an endpoint that takes name OR id? 
-//endpoint that takes in containing a name? 
-//maybe make two endpoints, so users can choose how to write their code and pass back data?
-//one way would be to have a search bar that will take in a name. Still need to use params instead of body because the /whiskeys endpoint already exists
+app.get('/whiskeys/search/:name', function(req,res){
 
+	var wName= req.params.name;
+
+	db.all("SELECT * FROM whiskey WHERE name=?", function(err, row){
+		if(err){
+			throw err
+		} else {
+			res.json(row)
+		}
+	})
+})
 
 //This is the named callback for the GET requests for a single whiskey
 var singleID = function(req, res){
@@ -36,19 +43,16 @@ var singleID = function(req, res){
 		if (err){
 			throw err
 		} else {
-			res.send(row)
+			res.json(row)
 		}
 	})
 }
 
-app.get('/whiskeys/:id', singleID)
+app.get('/whiskeys/:id', singleID);
 
 app.get('/whiskeys/:id/edit', singleID);
 
-
-
 app.post('/whiskeys/create', function(req,res){
-	console.log("WE ARE IN POST CREATE")
 	var name = req.body.name;
 	var type = req.body.type;
 	var price = req.body.price;
