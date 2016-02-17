@@ -24,4 +24,6 @@ nodemon app.js
 * Now use Postman to test the routes
 	* This is a Google Chrome extension, download it, it's awesome.
 	
-### Hosting on Heroku
+### Hosting
+
+* Don't bother trying to host on Heroku. sqlite3 does not play well with it

@@ -4,7 +4,7 @@ var express = require('express');
 var app = express()
 
 //set your port
-app.set('port', (process.env.PORT || 3000));
+app.set('port', (process.env.PORT || 8080));
 
 //middleware
 var bodyParser = require('body-parser');
@@ -15,6 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('whiskey.db');
 
+//get rid of favicon bullshit
 app.get('/favicon.ico', function(req, res){
 	res.writeHead(200, {'Content-Type': 'image/x-icon'});
 	res.end();
@@ -47,7 +48,7 @@ app.get('/whiskeys/search/:name', function(req,res){
 			res.json(row)
 		}
 	})
-})
+});
 
 //This is the named callback for the GET requests for a single whiskey
 var singleID = function(req, res){
