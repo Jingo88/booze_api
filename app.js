@@ -15,35 +15,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('whiskey.db');
 
-
-// var http = require('http');
-
 app.get('/favicon.ico', function(req, res){
 	res.writeHead(200, {'Content-Type': 'image/x-icon'});
 	res.end();
 })
-
-// http.createServer(function (q, r) { 
-
-//   // control for favicon
-//   if (q.url === '/favicon.ico') {
-//     r.writeHead(200, {'Content-Type': 'image/x-icon'} );
-//     r.end();
-//     console.log('favicon requested');
-//     return;
-//   }
-
-//   // not the favicon? say hai
-//   console.log('hello');
-//   r.writeHead(200, {'Content-Type': 'text/plain'} );
-//   r.write('Hello, world!');
-//   r.end();
-  
-// }).listen(8000);
-
-// console.log('Server running at http://127.0.0.1:8000/');
-
-
 
 //route for all whiskeys in database
 app.get('/', function(req, res){
@@ -89,7 +64,6 @@ var singleID = function(req, res){
 
 //GET requests for a single whiskey
 app.get('/whiskeys/:id', singleID);
-
 app.get('/whiskeys/:id/update', singleID);
 
 
@@ -138,12 +112,10 @@ app.delete('/whiskeys/:id/delete', function(req, res){
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-// app.listen(3000);
-// console.log("We are connected to port 3000")
+
+
 
 //check out sqlite3 wrapper commands ---- .run / .all / .get
-
-
 
 //ROUTES
 
@@ -154,9 +126,6 @@ app.listen(app.get('port'), function() {
 // PUT /whiskeys/id/update 							Update One Whiskey
 // POST /whiskeys/create 								Create New Whiskey
 // DELETE /whiskeys/id/delete 					Delete One Whiskey
-
-
-
 
 
 
