@@ -1,15 +1,27 @@
-# Making a whiskey API for CRUD practice
+# Make a whiskey API for CRUD Practice
 
-* Make the schema file
+### Set Up
+
+* Clone the repo
+* Install packages from the package.json file using `npm install`
+	* If you don't have node install that first
 * Create the database and import the schema
 
 ```
 sqlite3 whiskey.db < schema.sql
 ```
-* Make the seed file
 * Run the seed file
 
 ```
 node seed.js
 ```
-* USE POSTMAN WOOOOOO
+* Set the port to `3000` in the `app.js` file
+* Use `nodemon` to start the server and test it
+
+```
+nodemon app.js
+```
+* Now use Postman to test the routes
+	* This is a Google Chrome extension, download it, it's awesome.
+	
+### Hosting on Heroku
