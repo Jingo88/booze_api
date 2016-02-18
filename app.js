@@ -85,7 +85,7 @@ app.post('/whiskeys/create', function(req,res){
 });
 
 //POST requests for updating whiskey
-app.post('/whiskeys/update/:id', function(req,res){
+app.post('/whiskeys/:id/update', function(req,res){
 	var wID = req.params.id;
 	var rName = req.body.name;
 	var rType = req.body.type;
@@ -136,11 +136,7 @@ app.listen(app.get('port'), function() {
 
 // TODO
 
-// change update route
-// Add curse word checker
-// regex
 // make something to prevent a billion curl posts
-// 
 
 
 
