@@ -6,7 +6,11 @@ var seedData = [
 	['Angels Envy', 'Bourbon', 55],
 	['Hudson Four Grain', 'Bourbon', 60],
 	['Buffalo Trace', 'Whiskey', 35],
-	['Pigs Nose', 'Blend', 45]
+	['Pigs Nose', 'Blend', 45],
+	['Hudson Baby Bourbon', 'Bourbon', 60],
+	['Woodford Reserve Kentucky Straight Bourbon', 'Bourbon', 45],
+	['Woodford Reserve Kentucky Straight Rye', 'Rye Whiskey', 40],
+	["'Buchanan's", 'Blend', 50]
 ];
 
 for (var i=0; i<seedData.length; i++){

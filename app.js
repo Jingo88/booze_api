@@ -1,7 +1,7 @@
 //connect your modules
 var express = require('express');											//express
 var app = express()																		//express
-app.set('port', (process.env.PORT || 3000));					//set your port
+app.set('port', (process.env.PORT || 8080));					//set your port
 var bodyParser = require('body-parser');							//middleware
 app.use(bodyParser.json());														//middleware
 app.use(bodyParser.urlencoded({ extended: true })); 	//middleware
@@ -85,19 +85,20 @@ app.post('/whiskeys/create', function(req,res){
 });
 
 //POST requests for updating whiskey
-app.post('/whiskeys/:id/update', function(req,res){
+app.put('/whiskeys/:id/update', function(req,res){
 	var wID = req.params.id;
 	var rName = req.body.name;
 	var rType = req.body.type;
-	var rprice = req.body.price;
+	var price = req.body.price;
 
 	var name = mexp.titleCase(rName);
 	var type = mexp.titleCase(rType);
-	var price = rPrice;
 
-	db.run("UPDATE whiskey SET name=?, type=?, price=? WHERE id=?",name, type, price, function(err){
+	db.run("UPDATE whiskey SET name=?, type=?, price=? WHERE id=?",name, type, price, wID, function(err){
 		if(err){
 			throw err
+		} else {
+			res.send("We have updated the database with " + name)
 		}
 	})
 });
@@ -125,22 +126,18 @@ app.listen(app.get('port'), function() {
 //check out sqlite3 wrapper commands ---- .run / .all / .get
 
 //ROUTES
-
 // GET /whiskeys 												Get All Whiskeys
-// GET /whiskeys/new										Get Create Whiskey Form
-// GET /whiskeys/id 										Get One Whiskey
-// GET /whiskeys/id/edit 								Get One Whiskey Edit Form
-// PUT /whiskeys/id/update 							Update One Whiskey
+// GET /whiskeys/search/:name 					Search all whiskeys with a name
+// GET /whiskeys/:id 										Get One Whiskey
+// PUT /whiskeys/:id/update 						Update One Whiskey
 // POST /whiskeys/create 								Create New Whiskey
-// DELETE /whiskeys/id/delete 					Delete One Whiskey
+// DELETE /whiskeys/:id/delete 					Delete One Whiskey
+
+
 
 // TODO
 
 // make something to prevent a billion curl posts
-
-
-
-
 
 
 
