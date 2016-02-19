@@ -13,6 +13,10 @@ mexp.titleCase = function(x){
 	return str
 }
 
+mexp.priceChecker = function(x){
+	
+}
+
 var badWords = [
 	"5h1t",
 	"5hit",
@@ -23,7 +27,9 @@ var badWords = [
 	"Asses",
 	"Asshat",
 	"Asshole",
+	"Balls",
 	"Bitch",
+	"Blowjob",
 	"Chink",
 	"Cock",
 	"Cunt",
