@@ -53,7 +53,11 @@ var singleID = function(req, res){
 		if (err){
 			throw err
 		} else {
-			res.json(row)
+			if (row === undefined){
+				res.send("There is no whiskey with that ID")
+			} else{
+				res.json(row)	
+			}
 		}
 	})
 }
@@ -78,10 +82,12 @@ app.post('/whiskeys/create', function(req,res){
 
 	db.run("INSERT INTO whiskey (name, type, price) VALUES (?, ?, ?)", name, type, price, function(err){
 		if(err){
-			throw err;
+			// throw err;
+			res.send(name + " already exists")
+		} else {
+			res.send("You have created "+ name + " in our database")
 		}
 	})
-	res.send("You have created "+ name + " in our database")
 });
 
 //POST requests for updating whiskey
