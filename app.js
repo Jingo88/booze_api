@@ -40,7 +40,11 @@ app.get('/whiskeys/search/:name', function(req,res){
 		if(err){
 			throw err
 		} else {
-			res.json(row)
+			if (JSON.stringify(row) === "[]"){
+				res.send("Sorry that whiskey does not exist");
+			} else {
+				res.json(row)
+			}
 		}
 	})
 });
