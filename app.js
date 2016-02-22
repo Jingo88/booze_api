@@ -127,7 +127,11 @@ app.delete('/whiskeys/:id/delete', function(req, res){
 		if (err){
 			throw err
 		} else {
-			res.send("Whiskey has been deleted from the database")
+			if (row === undefined){
+				res.send("There is no whiskey with that ID")
+			} else{
+				res.send("Whiskey has been deleted from the database")
+			}
 		}
 	})
 });
