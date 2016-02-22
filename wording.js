@@ -14,8 +14,30 @@ mexp.titleCase = function(x){
 }
 
 mexp.priceChecker = function(x){
-	
+	var val = Number(x);
+	var str = x.toString();
+	var xArr = str.split(".");
+
+	if (xArr.indexOf('.') === -1) {
+		x = val.toFixed(2);
+	} else if (res[1].length < 3){
+		x = val.toFixed(2);
+	}
+	return x
 }
+
+
+
+
+/////////////////////				BELOW THESE LINES ARE 			/////////////////////
+/////////////////////				BAD WORDS 	  							/////////////////////
+/////////////////////				FOR MY CURSE WORD REPLACER				/////////////////////
+/////////////////////				DO NOT LOOK BELOW HERE			/////////////////////
+/////////////////////				YOU HAVE BEEN WARNED				/////////////////////
+
+
+
+
 
 var badWords = [
 	"5h1t",
