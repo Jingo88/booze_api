@@ -14,7 +14,7 @@ var mexp = require("./wording.js") 										//import the wording.js file
 app.get('/favicon.ico', function(req, res){
 	res.writeHead(200, {'Content-Type': 'image/x-icon'});
 	res.end();
-})
+});
 
 //HOME ROUTE
 app.get('/', function(req, res){
@@ -39,10 +39,9 @@ app.get('/whiskeys/search/:name', function(req,res){
 
 	db.all("SELECT * FROM whiskey WHERE name LIKE ?", "%"+wName+"%", function(err, row){
 		if(err){
-			throw err
 			res.send("There was an error searching for that name")
 		} else {
-			if (JSON.stringify(row) === "[]"){
+			if (row.length < 1){
 				res.send("Sorry that whiskey does not exist");
 			} else {
 				res.json(row)
