@@ -23,6 +23,7 @@ app.get('/', function(req, res){
 app.get('/whiskeys', function(req, res){
 	db.all("SELECT * FROM whiskey", function(err, row){
 		if (err){
+			res.send("Hmmm there's something wrong with the root route? Server shutting down")
 			throw err
 		}else{
 			res.json(row)		
@@ -39,6 +40,7 @@ app.get('/whiskeys/search/:name', function(req,res){
 	db.all("SELECT * FROM whiskey WHERE name LIKE ?", "%"+wName+"%", function(err, row){
 		if(err){
 			throw err
+			res.send("There was an error searching for that name")
 		} else {
 			if (JSON.stringify(row) === "[]"){
 				res.send("Sorry that whiskey does not exist");
@@ -53,17 +55,21 @@ app.get('/whiskeys/search/:name', function(req,res){
 var singleID = function(req, res){
 	var wID = req.params.id;
 
-	db.get("SELECT * FROM whiskey WHERE id=?", wID, function(err, row){
-		if (err){
-			throw err
-		} else {
-			if (row === undefined){
-				res.send("There is no whiskey with that ID")
-			} else{
-				res.json(row)	
+	if (isNaN(wID)){
+		res.send("Sorry that is not a valid ID. Please enter a integer")
+	} else {
+		db.get("SELECT * FROM whiskey WHERE id=?", wID, function(err, row){
+			if (err){
+				res.send("There seems to be an error by searching for that ID")
+			} else {
+				if (row === undefined){
+					res.send("There is no whiskey with that ID")
+				} else{
+					res.json(row)	
+				}
 			}
-		}
-	})
+		})
+	}
 }
 
 //GET requests for a single whiskey
@@ -123,17 +129,21 @@ app.put('/whiskeys/:id/update', function(req,res){
 app.delete('/whiskeys/:id/delete', function(req, res){
 	var delID = req.params.id;
 
-	db.run("DELETE FROM whiskey WHERE id=?", delID, function(err, row){
-		if (err){
-			res.send("There is no whiskey with that ID")
-		} else {
-			if (row === undefined){
-				res.send("There is no whiskey with that ID")
-			} else{
-				res.send("Whiskey has been deleted from the database")
+	if (isNaN(delID)){
+		res.send("You have entered an invalid id, please enter an integer")
+	} else {
+		db.run("DELETE FROM whiskey WHERE id=?", delID, function(err, row){
+			if (err){
+				res.send("There is an error with your request")
+			} else {
+				if (row === undefined){
+					res.send("There is no whiskey with that ID")
+				} else{
+					res.send("Whiskey has been deleted from the database")
+				}
 			}
-		}
-	})
+		})		
+	}
 });
 
 
