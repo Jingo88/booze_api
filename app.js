@@ -125,7 +125,7 @@ app.delete('/whiskeys/:id/delete', function(req, res){
 
 	db.run("DELETE FROM whiskey WHERE id=?", delID, function(err, row){
 		if (err){
-			throw err
+			res.send("There is no whiskey with that ID")
 		} else {
 			if (row === undefined){
 				res.send("There is no whiskey with that ID")
