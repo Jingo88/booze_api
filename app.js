@@ -9,7 +9,6 @@ var sqlite3 = require('sqlite3').verbose();						//database
 var db = new sqlite3.Database('whiskey.db');					//database
 var mexp = require("./wording.js") 										//import the wording.js file
 
-
 //get rid of favicon bullshit
 app.get('/favicon.ico', function(req, res){
 	res.writeHead(200, {'Content-Type': 'image/x-icon'});
@@ -26,7 +25,7 @@ app.get('/whiskeys', function(req, res){
 			res.send("Hmmm there's something wrong with the root route? Server shutting down")
 			throw err
 		}else{
-			res.json(row)		
+			res.jsonp(row)		
 		}
 	});
 });
@@ -44,7 +43,7 @@ app.get('/whiskeys/search/:name', function(req,res){
 			if (row.length < 1){
 				res.send("Sorry that whiskey does not exist");
 			} else {
-				res.json(row)
+				res.jsonp(row)
 			}
 		}
 	})
@@ -64,7 +63,7 @@ var singleID = function(req, res){
 				if (row === undefined){
 					res.send("There is no whiskey with that ID")
 				} else{
-					res.json(row)	
+					res.jsonp(row)	
 				}
 			}
 		})
