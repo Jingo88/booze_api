@@ -29,7 +29,7 @@ router.route('/search/:name')
 				res.send("There was an error searching for that name")
 			} else {
 				if (row.length < 1){
-					res.send("Sorry that whiskey does not exist");
+					res.status(400).json("Sorry that whiskey does not exist");
 				} else {
 					res.jsonp(row)
 				}
@@ -49,7 +49,7 @@ var singleID = function(req, res){
 				res.send("There seems to be an error by searching for that ID")
 			} else {
 				if (row === undefined){
-					res.send("There is no whiskey with that ID")
+					res.status(400).json("Sorry that whiskey does not exist");
 				} else{
 					res.jsonp(row)	
 				}
@@ -127,7 +127,7 @@ router.route('/:id/delete')
 					if (row === undefined){
 						res.send("There is no whiskey with that ID")
 					} else{
-						res.send("Whiskey has been deleted from the database")
+						res.sendStatus(200)
 					}
 				}
 			})		
