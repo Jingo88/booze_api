@@ -15,13 +15,17 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/', whiskey_routes);
+app.use('/whiskeys', whiskey_routes);
 
 //get rid of favicon bullshit
 app.get('/favicon.ico', function(req, res){
 	res.writeHead(200, {'Content-Type': 'image/x-icon'});
 	res.end();
 });
+
+app.get('/', function(req,res){
+		res.redirect('/whiskeys')
+})
 
 
 app.listen(app.get('port'), function() {
