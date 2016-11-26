@@ -17,55 +17,6 @@ router.route('/')
 			}
 		});
 	})
-
-// //route to let a user search by name
-router.route('/search/:name')
-	.get(function(req, res){
-		var param= req.params.name;
-		var wName = mexp.titleCase(param);
-
-		db.all("SELECT * FROM whiskey WHERE name LIKE ?", "%"+wName+"%", function(err, row){
-			if(err){
-				res.send("There was an error searching for that name")
-			} else {
-				if (row.length < 1){
-					res.status(400).json("Sorry that whiskey does not exist");
-				} else {
-					res.jsonp(row)
-				}
-			}
-		})
-	})
-
-//This is the named callback for the GET requests for a single whiskey
-var singleID = function(req, res){
-	var wID = req.params.id;
-
-	if (isNaN(wID)){
-		res.send("Sorry that is not a valid ID. Please enter a integer")
-	} else {
-		db.get("SELECT * FROM whiskey WHERE id=?", wID, function(err, row){
-			if (err){
-				res.send("There seems to be an error by searching for that ID")
-			} else {
-				if (row === undefined){
-					res.status(400).json("Sorry that whiskey does not exist");
-				} else{
-					res.jsonp(row)	
-				}
-			}
-		})
-	}
-}
-
-router.route('/:id')
-	.get(singleID)
-
-// take this out?
-router.route('/:id/update')
-	.get(singleID)
-
-router.route('/create')
 	.post(function(req, res){
 		var rName = req.body.name;
 		var rType = req.body.type;
@@ -89,9 +40,25 @@ router.route('/create')
 		}
 	})
 
-router.route('/:id/update')
+// //route to let a user search by name
+router.route('/:whiskey')
+	.get(function(req, res){
+		var whiskeyID= req.params.whiskey;
+
+		db.get("SELECT * FROM whiskey WHERE id=?", whiskeyID, function(err, row){
+			if (err){
+				res.send("There seems to be an error by searching for that ID")
+			} else {
+				if (row === undefined){
+					res.status(400).json("Sorry that whiskey does not exist");
+				} else{
+					res.jsonp(row)	
+				}
+			}
+		})
+	})
 	.put(function(req, res){
-		var wID = req.params.id;
+		var whiskeyID= req.params.whiskey;
 		var rName = req.body.name;
 		var rType = req.body.type;
 		var rPrice = req.body.price;
@@ -103,9 +70,9 @@ router.route('/:id/update')
 		if (isNaN(price)===true){
 			res.send("You entered an invalid price, please make sure to enter an integer");
 		} else {
-			db.run("UPDATE whiskey SET name=?, type=?, price=? WHERE id=?",name, type, price, wID, function(err){
+			db.run("UPDATE whiskey SET name=?, type=?, price=? WHERE id=?",name, type, price, whiskeyID, function(err){
 				if(err){
-					throw err
+					res.status(400).json("Sorry there is already a whiskey with that name");
 				} else {
 					res.send("We have updated the database with " + name)
 				}
@@ -113,9 +80,9 @@ router.route('/:id/update')
 		}
 	})
 
-router.route('/:id/delete')
+router.route('/:whiskey')
 	.delete(function(req, res){
-		var delID = req.params.id;
+		var delID = req.params.whiskey;
 
 		if (isNaN(delID)){
 			res.send("You have entered an invalid id, please enter an integer")
