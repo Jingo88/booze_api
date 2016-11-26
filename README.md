@@ -19,12 +19,11 @@
 
 * Users will be able to Create, Read, Update, or Delete from this database
 * Curse words will be replaced with the word `"Puppies"`
-* If a user wants to enter data through a form, it must be passed in as the three properties:
+* Users can search for whiskeys by their `IDs / Primary Keys`
+* If you are submitting data through a form, or through post man, the keys must be
 	* name
 	* type
 	* price
-* Users can search by `id` or `name`
-
 
 ### Set Up
 
@@ -59,11 +58,10 @@ nodemon app.js
 |--------|------------------------|--------------------------------------------|
 | GET    | /                      | Redirect to /whiskeys                      |
 | GET    | /whiskeys              | Get all the whiskeys                       |
-| GET    | /whiskeys/search/:name | Get all whiskeys containing name parameter |
-| GET    | /whiskeys/:id          | Get specific whiskey by ID                 |
-| POST   | /whiskeys/create       | Create new whiskey                         |
-| PUT    | /whiskeys/:id/update   | Update an existing whiskey                 |
-| DELETE | /whiskeys/:id/delete   | Delete a specific whiskey                  |
+| GET    | /whiskeys/:whiskey 	   | Get all whiskeys containing name parameter |
+| POST   | /whiskeys/		       | Create new whiskey                         |
+| PUT    | /whiskeys/:whiskey  	   | Update an existing whiskey                 |
+| DELETE | /whiskeys/:whiskey	   | Delete a specific whiskey                  |
 
 	
 ### Hosting
