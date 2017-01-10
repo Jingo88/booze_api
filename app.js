@@ -6,15 +6,18 @@ app.set('port', (process.env.PORT || 8080));					//set your port
 var bodyParser = require('body-parser');							//middleware
 app.use(bodyParser.json());														//middleware
 app.use(bodyParser.urlencoded({ extended: true })); 	//middleware
+var cors = require('cors');
 
 var whiskey_routes = require('./routes/whiskeys');
   
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, HEAD");
-  next();
-});
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, HEAD");
+//   next();
+// });
+
+app.use(cors());
 
 app.use('/whiskeys', whiskey_routes);
 
