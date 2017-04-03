@@ -31,7 +31,6 @@ router.route('/')
 		} else {
 			db.run("INSERT INTO whiskey (name, type, price) VALUES (?, ?, ?)", name, type, price, function(err){
 				if(err){
-					// throw err;
 					res.send(name + " already exists")
 				} else {
 					res.send("You have created "+ name + " in our database")
@@ -40,7 +39,8 @@ router.route('/')
 		}
 	})
 
-// //route to let a user search by name
+
+//route to let a user search by name
 router.route('/:whiskey')
 	.get(function(req, res){
 		var whiskeyID= req.params.whiskey;
@@ -79,6 +79,7 @@ router.route('/:whiskey')
 			})
 		}
 	})
+
 
 router.route('/:whiskey')
 	.delete(function(req, res){

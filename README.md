@@ -3,7 +3,7 @@
 ### Introduction
 
 * This is an API built using `Express.js` and `SQLite3`
-* This API is intended to help others practice building CRUD applications
+* This API is intended to help you practice building CRUD applications
 
 ### Database
 
@@ -30,7 +30,7 @@
 * Clone this repository
 * Use `npm install` to install all the packages inside the `package.json` file
 	* If you do not have node installed follow there directions [here](https://nodejs.org/en/download/package-manager/)
-		* You can most likely use a package manager such as `brew` or `apt-get`
+		* You can use a package manager such as `brew` or `apt`
 * Create the database and import the schema
 	* **IMPORTANT:** Make sure the database is named `whiskey.db`
 
@@ -44,12 +44,17 @@ sqlite3 whiskey.db < schema.sql
 node seed.js
 ```
 * Inside the `app.js` file, set the port to whatever you want
-* Use `nodemon` to start the server and test it
-	* Not familiar with nodemon? It's pretty cool, visit the docs [here](http://nodemon.io/)
+* Use `node` to start the server
 
 ```
-nodemon app.js
+node app.js
 ```
+* Your terminal should now say 
+
+```
+Node app is running on port 8080
+```
+
 * Now use Postman to test the routes
 	* This is a Google Chrome extension, download it, it's awesome.
 * The routes in this api are below:
@@ -68,7 +73,6 @@ nodemon app.js
 
 * Don't bother trying to host on Heroku. sqlite3 does not play well with it
 * When hosting the application make sure you set the `port number`, and load the `schema` and `seed`
-
 
 ### BE CAREFUL
 
