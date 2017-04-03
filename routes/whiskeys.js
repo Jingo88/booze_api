@@ -2,7 +2,7 @@ var express = require('express');
 
 var sqlite3 = require('sqlite3').verbose();						//database
 var db = new sqlite3.Database('whiskey.db');					//database
-var mexp = require("../wording.js") 										//import the wording.js file
+var mexp = require("../wording.js") 									//import the wording.js file
 
 var router = express.Router();
 

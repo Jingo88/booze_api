@@ -8,8 +8,10 @@ app.use(bodyParser.json());														//middleware
 app.use(bodyParser.urlencoded({ extended: true })); 	//middleware
 var cors = require('cors');
 
+// Grab the whiskeys.js file
 var whiskey_routes = require('./routes/whiskeys');
   
+// Replaced this with the CORS NPM
 // app.use(function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -38,13 +40,15 @@ app.listen(app.get('port'), function() {
 
 //check out sqlite3 wrapper commands ---- .run / .all / .get
 
-//ROUTES
-// GET /whiskeys 												Get All Whiskeys
-// GET /whiskeys/search/:name 					Search all whiskeys with a name
-// GET /whiskeys/:id 										Get One Whiskey
-// PUT /whiskeys/:id/update 						Update One Whiskey
-// POST /whiskeys/create 								Create New Whiskey
-// DELETE /whiskeys/:id/delete 					Delete One Whiskey
+// | Method | Endpoint               | Description                                |
+// |--------|------------------------|--------------------------------------------|
+// | GET    | /                      | Redirect to /whiskeys                      |
+// | GET    | /whiskeys              | Get all the whiskeys                       |
+// | GET    | /whiskeys/:whiskey 	   | Get all whiskeys containing name parameter |
+// | POST   | /whiskeys/		       	| Create new whiskey                         |
+// | PUT    | /whiskeys/:whiskey    | Update an existing whiskey                 |
+// | DELETE | /whiskeys/:whiskey 	  | Delete a specific whiskey                  |
+
 
 
 
